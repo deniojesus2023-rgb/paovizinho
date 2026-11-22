@@ -1,0 +1,83 @@
+.tela {
+  position: relative;
+  flex: 1;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, var(--creme) 0%, var(--pessego) 100%);
+  overflow: hidden;
+}
+
+.padrao {
+  position: absolute;
+  inset: 0;
+  background: url(/marca/padrao-chocolate.svg) center top / 120px 90px;
+  opacity: 0.07;
+  -webkit-mask-image: radial-gradient(circle at 50% 30%, transparent 0, transparent 110px, #000 220px);
+  mask-image: radial-gradient(circle at 50% 30%, transparent 0, transparent 110px, #000 220px);
+}
+
+.topo {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 0 28px;
+}
+
+.simbolo {
+  width: 168px;
+  height: 168px;
+  border-radius: 999px;
+  background: var(--fundo-app);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 24px 50px -20px rgba(74, 37, 18, 0.4), 0 0 0 10px rgba(255, 251, 245, 0.5);
+}
+
+.folha {
+  position: relative;
+  background: var(--fundo-app);
+  border-radius: 32px 32px 0 0;
+  padding: 14px 24px 40px;
+  display: grid;
+  box-shadow: 0 -12px 32px -18px rgba(74, 37, 18, 0.3);
+}
+
+.alca {
+  justify-self: center;
+  width: 40px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--borda);
+  margin-bottom: 22px;
+}
+
+.logo { width: 150px; margin-bottom: 18px; }
+
+.chamada {
+  font-size: 28px;
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+  margin-bottom: 10px;
+}
+
+.texto {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--texto-suave);
+  margin: 0 0 24px;
+}
+
+.acoes { display: grid; gap: 10px; }
+
+.legal {
+  margin: 16px 0 0;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--texto-suave);
+}
+.legal a { color: var(--chocolate); font-weight: 700; }

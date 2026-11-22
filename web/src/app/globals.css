@@ -1,0 +1,215 @@
+/* =============================================================================
+   Pão Vizinho — design tokens (design_handoff_pao_vizinho/README.md)
+   ============================================================================= */
+:root {
+  --chocolate: #4a2512;
+  --laranja: #e8650a;
+  --laranja-escuro: #c25407;
+  --pessego: #fdebdc;
+  --caramelo: #f2c997;
+  --creme: #fff6ea;
+  --fundo-app: #fffbf5;
+  --superficie: #ffffff;
+  --areia: #f5ece0;
+  --areia-2: #f7f1e9;
+  --areia-3: #f3eadf;
+  --borda: #eee4d7;
+  --divisor: #f3eadf;
+  --texto-suave: #8a6f5e;
+  --desabilitado: #c9b8a6;
+  --desabilitado-2: #e2d4c2;
+  --sucesso: #3f8f5a;
+  --sucesso-fundo: #e7f2ea;
+  --sucesso-texto: #2e6b43;
+  --alerta: #c9a227;
+  --alerta-fundo: #fbf3d5;
+  --alerta-texto: #8a6a00;
+
+  --sombra-card: 0 8px 24px -12px rgba(74, 37, 18, 0.18);
+  --sombra-flutuante: 0 14px 30px -14px rgba(74, 37, 18, 0.35);
+  --sombra-laranja: 0 10px 20px -10px rgba(232, 101, 10, 0.7);
+  --sombra-toast: 0 12px 28px -8px rgba(74, 37, 18, 0.45);
+
+  --fonte-titulo: var(--font-red-hat-display), "Red Hat Display", sans-serif;
+  --fonte-texto: var(--font-red-hat-text), "Red Hat Text", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--fundo-app);
+  color: var(--chocolate);
+  font-family: var(--fonte-texto);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100dvh;
+}
+
+a { color: var(--laranja); }
+a:hover { color: var(--chocolate); }
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+button:active:not(:disabled) { transform: scale(0.97); }
+button:disabled { cursor: not-allowed; }
+
+.icone {
+  font-family: "Material Symbols Rounded";
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: nowrap;
+  direction: ltr;
+  font-variation-settings: "FILL" 0;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+.icone.cheio { font-variation-settings: "FILL" 1; }
+
+/* Coluna do app do cliente: celular em tela cheia, centralizado no computador. */
+.app-mobile {
+  position: relative;
+  max-width: 430px;
+  min-height: 100dvh;
+  margin: 0 auto;
+  background: var(--fundo-app);
+  display: flex;
+  flex-direction: column;
+}
+@media (min-width: 431px) {
+  body:has(.app-mobile) { background: #f3ece2; }
+  .app-mobile { box-shadow: 0 0 0 1px var(--borda); }
+}
+
+/* ---------- Tipografia ---------- */
+.titulo {
+  font-family: var(--fonte-titulo);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.subtitulo { font-size: 14px; color: var(--texto-suave); margin: 0; line-height: 1.5; }
+.label-secao {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--texto-suave);
+}
+
+/* ---------- Botões ---------- */
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 15px;
+  text-decoration: none;
+}
+.btn-primario {
+  height: 54px;
+  border: none;
+  background: var(--laranja);
+  color: #fff;
+}
+.btn-primario:disabled { background: var(--desabilitado); }
+.btn-primario.grande { height: 56px; border-radius: 16px; font-size: 16px; box-shadow: var(--sombra-laranja); }
+.btn-contorno {
+  height: 52px;
+  border: 1px solid var(--borda);
+  border-radius: 16px;
+  background: var(--superficie);
+  color: var(--chocolate);
+}
+.btn-contorno:hover { color: var(--chocolate); }
+.btn-texto {
+  border: none;
+  background: none;
+  padding: 8px 0;
+  color: var(--texto-suave);
+  font-size: 13px;
+  font-weight: 700;
+}
+.btn-texto:disabled { color: var(--desabilitado); }
+.btn-icone {
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: none;
+  color: var(--chocolate);
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- Formulários ---------- */
+.campo { display: grid; gap: 6px; }
+.campo > span { font-size: 13px; font-weight: 700; color: var(--texto-suave); }
+.input {
+  height: 50px;
+  width: 100%;
+  border: 1px solid var(--borda);
+  border-radius: 14px;
+  padding: 0 14px;
+  font-family: inherit;
+  font-size: 15px;
+  background: var(--superficie);
+  color: var(--chocolate);
+  outline: none;
+  transition: border-color 0.2s;
+  appearance: none;
+}
+.input:focus { border-color: var(--laranja); }
+.input::placeholder { color: var(--desabilitado); }
+select.input {
+  background-image: linear-gradient(45deg, transparent 50%, var(--texto-suave) 50%),
+    linear-gradient(135deg, var(--texto-suave) 50%, transparent 50%);
+  background-position: calc(100% - 20px) 22px, calc(100% - 15px) 22px;
+  background-size: 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 36px;
+}
+
+.erro {
+  border-radius: 14px;
+  background: var(--pessego);
+  color: var(--laranja-escuro);
+  padding: 12px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+/* ---------- Topo com voltar + barra de progresso ---------- */
+.topo-tela {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 16px 10px;
+}
+.topo-tela > strong { font-size: 16px; }
+.progresso { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+.progresso > span { height: 4px; border-radius: 999px; background: var(--borda); transition: background-color 0.25s; }
+.progresso > span.ativo { background: var(--laranja); }
+
+.rodape-fixo {
+  position: sticky;
+  bottom: 0;
+  margin-top: auto;
+  background: var(--fundo-app);
+  border-top: 1px solid var(--borda);
+  padding: 14px 20px 34px;
+}
