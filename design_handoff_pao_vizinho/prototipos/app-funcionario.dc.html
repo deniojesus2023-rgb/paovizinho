@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Red+Hat+Display:wght@500;700&family=Material+Symbols+Rounded:opsz,wght,FILL@24,400,0..1&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#EFE6DA;font-family:'Lato',sans-serif;color:#4A2512}a{color:#E8650A}a:hover{color:#4A2512}*{box-sizing:border-box}button{font-family:inherit;cursor:pointer;transition:background-color .2s,border-color .2s,color .2s,transform .15s}button:active{transform:scale(.97)}[style*="overflow"]{scrollbar-width:none}[style*="overflow"]::-webkit-scrollbar{display:none}</style>
+</helmet>
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 24px;">
+  <div style="width:1194px;height:834px;flex-shrink:0;border-radius:40px;background:#1C120C;padding:18px;box-shadow:0 30px 60px rgba(74,37,18,.25);">
+    <div style="position:relative;width:100%;height:100%;border-radius:24px;overflow:hidden;background:#FFFBF5;display:flex;flex-direction:column;">
+
+      <div style="height:68px;flex-shrink:0;display:flex;align-items:center;gap:20px;padding:0 24px;border-bottom:1px solid #EEE4D7;background:#FFFFFF;">
+        <img src="app/logo-horizontal-cor.svg" alt="pão vizinho" style="height:28px;">
+        <span style="width:1px;height:28px;background:#EEE4D7;"></span>
+        <div style="display:grid;gap:1px;"><span style="font-size:11px;font-weight:700;letter-spacing:.06em;color:#8A6F5E;">BALCÃO</span><span style="font-weight:700;font-size:15px;">Jardim das Flores</span></div>
+        <div style="flex:1;"></div>
+        <div style="display:flex;gap:8px;">
+          <sc-for list="{{ filters }}" as="f" hint-placeholder-count="3">
+            <button onClick="{{ f.pick }}" style="height:40px;padding:0 14px;border:1px solid {{ f.border }};border-radius:999px;background:{{ f.bg }};color:{{ f.fg }};font-weight:700;font-size:14px;display:flex;align-items:center;gap:6px;"><span style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1;">{{ f.icon }}</span>{{ f.label }}</button>
+          </sc-for>
+        </div>
+        <button onClick="{{ toggleOpen }}" style="height:40px;padding:0 14px 0 10px;border:none;border-radius:999px;background:{{ openBg }};color:{{ openFg }};font-weight:700;font-size:14px;display:flex;align-items:center;gap:8px;"><span style="width:10px;height:10px;border-radius:999px;background:{{ openDot }};"></span>{{ openLabel }}</button>
+        <div style="display:flex;align-items:center;gap:10px;"><div style="width:40px;height:40px;border-radius:999px;background:#F2C997;display:flex;align-items:center;justify-content:center;font-weight:700;">C</div><div style="display:grid;gap:1px;"><span style="font-weight:700;font-size:14px;">Cida</span><span style="font-size:12px;color:#8A6F5E;">{{ clock }}</span></div></div>
+      </div>
+
+      <div style="flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 400px;">
+        <div style="min-height:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;padding:20px;background:#F7F1E9;">
+          <sc-for list="{{ columns }}" as="col" hint-placeholder-count="3">
+            <div style="min-height:0;display:flex;flex-direction:column;gap:12px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:0 4px;"><span style="display:flex;align-items:center;gap:8px;font-family:'Red Hat Display',sans-serif;font-weight:700;font-size:17px;white-space:nowrap;"><span style="width:10px;height:10px;border-radius:999px;background:{{ col.color }};"></span>{{ col.title }}</span><span style="min-width:28px;height:24px;padding:0 8px;border-radius:999px;background:#FFFFFF;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;">{{ col.count }}</span></div>
+              <div style="flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding-bottom:12px;">
+                <sc-for list="{{ col.cards }}" as="o" hint-placeholder-count="2">
+                  <button onClick="{{ o.select }}" style="border:2px solid {{ o.border }};border-radius:18px;background:#FFFFFF;padding:14px;text-align:left;display:grid;gap:10px;color:#4A2512;box-shadow:{{ o.shadow }};">
+                    <span style="display:flex;justify-content:space-between;align-items:center;"><span style="font-family:'Red Hat Display',sans-serif;font-weight:700;font-size:18px;">#{{ o.id }}</span><span style="flex-shrink:0;white-space:nowrap;font-size:12px;font-weight:700;padding:4px 8px;border-radius:999px;background:{{ o.timeBg }};color:{{ o.timeFg }};">{{ o.time }}</span></span>
+                    <span style="display:grid;gap:2px;"><span style="font-weight:700;font-size:15px;">{{ o.name }}</span><span style="font-size:13px;color:#8A6F5E;">{{ o.addr }}</span></span>
+                    <span style="font-size:13px;line-height:1.4;color:#4A2512;">{{ o.summary }}</span>
+                    <span style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid #F3EADF;padding-top:10px;"><span style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#8A6F5E;"><span style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1;color:#E8650A;">{{ o.modeIcon }}</span>{{ o.modeLabel }}</span><span style="font-weight:700;font-size:14px;">{{ o.totalF }}</span></span>
+                  </button>
+                </sc-for>
+                <sc-if value="{{ col.empty }}" hint-placeholder-val="{{ false }}"><div style="border:1.5px dashed #E2D4C2;border-radius:18px;padding:24px;text-align:center;font-size:13px;color:#8A6F5E;">Nada por aqui</div></sc-if>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="min-height:0;border-left:1px solid #EEE4D7;background:#FFFFFF;display:flex;flex-direction:column;">
+          <sc-if value="{{ hasSel }}" hint-placeholder-val="{{ true }}">
+            <div style="flex:1;min-height:0;overflow-y:auto;padding:22px 22px 12px;display:flex;flex-direction:column;gap:20px;">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+                <div style="display:grid;gap:4px;"><span style="font-size:12px;font-weight:700;letter-spacing:.06em;color:{{ sel.stageColor }};">{{ sel.stageLabel }}</span><span style="font-family:'Red Hat Display',sans-serif;font-weight:700;font-size:26px;letter-spacing:-.02em;">Pedido #{{ sel.id }}</span><span style="font-size:13px;color:#8A6F5E;">Feito às {{ sel.placed }} · {{ sel.payLabel }}</span></div>
+                <button onClick="{{ whats }}" style="height:44px;padding:0 14px;border:1px solid #EEE4D7;border-radius:12px;background:#FFFFFF;color:#4A2512;font-weight:700;font-size:13px;display:flex;align-items:center;gap:6px;"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:#E8650A;">chat</span>Avisar</button>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                <div style="border-radius:14px;background:#F7F1E9;padding:12px;display:grid;gap:2px;"><span style="font-size:12px;color:#8A6F5E;">Cliente</span><span style="font-weight:700;font-size:15px;">{{ sel.name }}</span><span style="font-size:13px;">{{ sel.addr }}</span></div>
+                <div style="border-radius:14px;background:{{ sel.modeBg }};padding:12px;display:grid;gap:2px;"><span style="font-size:12px;color:#8A6F5E;">{{ sel.modeLabel }}</span><span style="font-weight:700;font-size:15px;">{{ sel.when }}</span><span style="font-size:13px;">{{ sel.modeSub }}</span></div>
+              </div>
+              <div style="display:grid;gap:4px;">
+                <div style="display:flex;justify-content:space-between;align-items:baseline;padding-bottom:6px;"><span style="font-weight:700;font-size:15px;">Itens para separar</span><span style="font-size:13px;font-weight:700;color:#8A6F5E;">{{ sel.progress }}</span></div>
+                <sc-for list="{{ sel.items }}" as="it" hint-placeholder-count="3">
+                  <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #F3EADF;opacity:{{ it.op }};">
+                    <button onClick="{{ it.check }}" style="width:32px;height:32px;flex-shrink:0;border:2px solid {{ it.boxBorder }};border-radius:10px;background:{{ it.boxBg }};color:#FFFFFF;font-family:'Material Symbols Rounded';font-size:20px;display:flex;align-items:center;justify-content:center;">{{ it.mark }}</button>
+                    <div style="flex:1;display:grid;gap:2px;"><span style="font-weight:700;font-size:15px;text-decoration:{{ it.deco }};">{{ it.qty }}× {{ it.name }}</span><span style="font-size:12px;color:{{ it.noteColor }};">{{ it.note }}</span></div>
+                    <button onClick="{{ it.miss }}" style="height:32px;padding:0 10px;border:1px solid {{ it.missBorder }};border-radius:999px;background:{{ it.missBg }};color:{{ it.missFg }};font-size:12px;font-weight:700;">Em falta</button>
+                  </div>
+                </sc-for>
+              </div>
+              <sc-if value="{{ sel.hasNote }}" hint-placeholder-val="{{ false }}"><div style="border-radius:14px;background:#FDEBDC;padding:12px 14px;display:flex;gap:10px;font-size:14px;line-height:1.45;"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1.2;color:#C25407;">sticky_note_2</span>{{ sel.note }}</div></sc-if>
+              <sc-if value="{{ sel.hasMissing }}" hint-placeholder-val="{{ false }}"><div style="border-radius:14px;border:1px solid #F2C997;padding:12px 14px;display:flex;gap:10px;font-size:13px;line-height:1.45;color:#8A6F5E;"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1.2;color:#E8650A;">info</span>O cliente recebe aviso no WhatsApp e o valor do item em falta é estornado.</div></sc-if>
+            </div>
+            <div style="border-top:1px solid #EEE4D7;padding:14px 22px 18px;display:grid;gap:10px;">
+              <div style="display:flex;justify-content:space-between;font-weight:700;font-size:16px;"><span>Total</span><span>{{ sel.totalF }}</span></div>
+              <div style="display:flex;gap:8px;">
+                <sc-if value="{{ sel.canReject }}" hint-placeholder-val="{{ false }}"><button onClick="{{ reject }}" style="height:56px;padding:0 18px;border:1px solid #EEE4D7;border-radius:16px;background:#FFFFFF;color:#4A2512;font-weight:700;font-size:15px;">Recusar</button></sc-if>
+                <button onClick="{{ advance }}" style="flex:1;height:56px;border:none;border-radius:16px;background:{{ sel.ctaBg }};color:#FFFFFF;font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:center;gap:8px;opacity:{{ sel.ctaOp }};"><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;">{{ sel.ctaIcon }}</span>{{ sel.cta }}</button>
+              </div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ noSel }}" hint-placeholder-val="{{ false }}">
+            <div style="flex:1;display:grid;place-items:center;align-content:center;gap:12px;padding:40px;text-align:center;"><img src="app/simbolo-cor.svg" alt="" style="width:56px;opacity:.4;"><span style="font-weight:700;font-size:16px;">Tudo em dia</span><span style="font-size:14px;color:#8A6F5E;">Toque num pedido para ver os detalhes.</span></div>
+          </sc-if>
+        </div>
+      </div>
+
+      <div style="position:absolute;left:50%;top:84px;z-index:6;pointer-events:none;transform:translate(-50%,{{ toastY }});opacity:{{ toastO }};transition:transform .35s cubic-bezier(.2,.9,.3,1.2),opacity .25s;">
+        <div style="background:#4A2512;color:#FFF6EA;border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700;white-space:nowrap;box-shadow:0 12px 28px -8px rgba(74,37,18,.45);"><span style="width:26px;height:26px;border-radius:999px;background:#E8650A;display:flex;align-items:center;justify-content:center;font-family:'Material Symbols Rounded';font-size:16px;color:#FFFFFF;">check</span>{{ toastText }}</div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const ORDERS=[
+ {id:'0431',name:'Marina Souza',addr:'Bloco B · Apto 52',mode:'entrega',when:'Agora',placed:'7h02',pay:'Pix pago',stage:'new',note:'Interfone com defeito, me chama no WhatsApp.',items:[[6,'Pão francês','Moreninho',0.9],[1,'Café coado','300 ml',5]]},
+ {id:'0432',name:'Rafael Lima',addr:'Bloco D · Apto 13',mode:'retirada',when:'7h30',placed:'7h05',pay:'Pagar no balcão',stage:'new',items:[[10,'Pão de queijo','',1.5]]},
+ {id:'0429',name:'Dona Lurdes',addr:'Bloco A · Apto 81',mode:'entrega',when:'Agora',placed:'6h55',pay:'Cartão',stage:'picking',items:[[4,'Pão de leite','',1.2],[1,'Leite integral','1 L',6.5],[1,'Manteiga','200 g',11]]},
+ {id:'0427',name:'Paulo e Ana',addr:'Bloco C · Apto 24',mode:'entrega',when:'Agora',placed:'6h48',pay:'Pix pago',stage:'ready',items:[[1,'Bolo de cenoura','fatia',8],[2,'Café coado','300 ml',5]]},
+ {id:'0426',name:'Júlia Prado',addr:'Bloco F · Apto 11',mode:'retirada',when:'7h00',placed:'6h40',pay:'Pix pago',stage:'ready',items:[[8,'Pão francês','Clarinho',0.9]]},
+ {id:'0425',name:'Sr. Antônio',addr:'Bloco B · Apto 12',mode:'entrega',when:'Agora',placed:'6h35',pay:'Cartão',stage:'out',items:[[6,'Pão francês','',0.9]]}];
+const STAGE={new:{label:'NOVO',color:'#E8650A',cta:'Aceitar e separar',icon:'check',bg:'#E8650A'},picking:{label:'SEPARANDO',color:'#C9A227',cta:'Pedido pronto',icon:'inventory_2',bg:'#E8650A'},ready:{label:'PRONTO',color:'#3F8F5A',cta:'Saiu para entrega',icon:'directions_walk',bg:'#4A2512'},out:{label:'A CAMINHO',color:'#3F8F5A',cta:'Marcar entregue',icon:'done_all',bg:'#3F8F5A'}};
+const fmt=v=>'R$ '+v.toFixed(2).replace('.',',');
+class Component extends DCLogic{
+  state={orders:ORDERS.map(o=>({...o,checked:{},missing:{}})),sel:'0431',filter:'todos',open:true,toast:'',toastOn:false};
+  notify(t){clearTimeout(this._t);this.setState({toast:t,toastOn:true});this._t=setTimeout(()=>this.setState({toastOn:false}),1800);}
+  componentWillUnmount(){clearTimeout(this._t);}
+  upd(id,fn){this.setState(s=>({orders:s.orders.map(o=>o.id===id?fn(o):o)}));}
+  renderVals(){
+    const st=this.state;
+    const vis=st.orders.filter(o=>st.filter==='todos'||o.mode===st.filter);
+    const card=o=>{const total=o.items.reduce((a,i,ix)=>a+(o.missing[ix]?0:i[0]*i[3]),0);const sel=o.id===st.sel;
+      return{id:o.id,name:o.name,addr:o.addr,time:o.mode==='retirada'?'Retira '+o.when:o.when==='Agora'?'Entregar já':o.when,timeBg:o.when==='Agora'?'#FDEBDC':'#F3EADF',timeFg:o.when==='Agora'?'#C25407':'#4A2512',
+        summary:o.items.map(i=>i[0]+'× '+i[1]).join(', '),modeIcon:o.mode==='entrega'?'door_front':'storefront',modeLabel:o.mode==='entrega'?'Entrega':'Retirada',totalF:fmt(total),
+        border:sel?'#E8650A':'#FFFFFF',shadow:sel?'0 10px 24px -14px rgba(232,101,10,.6)':'0 2px 8px -6px rgba(74,37,18,.2)',select:()=>this.setState({sel:o.id})};};
+    const cols=[['Novos','#E8650A',['new']],['Separando','#C9A227',['picking']],['Prontos','#3F8F5A',['ready','out']]].map(([t,c,stg])=>{const cs=vis.filter(o=>stg.includes(o.stage));return{title:t,color:c,count:cs.length,cards:cs.map(card),empty:cs.length===0};});
+    const o=st.orders.find(x=>x.id===st.sel&&x.stage!=='done');
+    let sel={};
+    if(o){const S=STAGE[o.stage];const n=o.items.length;const done=o.items.filter((_,i)=>o.checked[i]||o.missing[i]).length;const allDone=done===n;
+      const cta=o.stage==='ready'&&o.mode==='retirada'?'Cliente retirou':S.cta;const blocked=o.stage==='picking'&&!allDone;
+      sel={id:o.id,name:o.name,addr:o.addr,placed:o.placed,payLabel:o.pay,stageLabel:S.label,stageColor:S.color,when:o.mode==='entrega'?(o.when==='Agora'?'Entregar agora':'Entregar '+o.when):'Retira às '+o.when,
+        modeLabel:o.mode==='entrega'?'Entrega no apê':'Retirada no balcão',modeSub:o.mode==='entrega'?'Levar até a porta':'Separar no nome',modeBg:o.mode==='entrega'?'#FDEBDC':'#F7F1E9',
+        progress:done+' de '+n,hasNote:!!o.note,note:o.note,hasMissing:Object.values(o.missing).some(Boolean),
+        totalF:fmt(o.items.reduce((a,i,ix)=>a+(o.missing[ix]?0:i[0]*i[3]),0)),canReject:o.stage==='new',
+        cta:blocked?'Marque todos os itens':cta,ctaIcon:o.stage==='ready'&&o.mode==='retirada'?'done_all':S.icon,ctaBg:blocked?'#C9B8A6':S.bg,ctaOp:1,
+        items:o.items.map((i,ix)=>{const c=!!o.checked[ix],m=!!o.missing[ix];return{qty:i[0],name:i[1],note:m?'Em falta · cliente avisado':(i[2]||' '),noteColor:m?'#C25407':'#8A6F5E',
+          mark:c?'check':'',boxBg:c?'#3F8F5A':'#FFFFFF',boxBorder:c?'#3F8F5A':'#E2D4C2',deco:m?'line-through':'none',op:m?.6:1,
+          missBg:m?'#FDEBDC':'#FFFFFF',missFg:m?'#C25407':'#8A6F5E',missBorder:m?'#F2C997':'#EEE4D7',
+          check:()=>this.upd(o.id,x=>({...x,checked:{...x.checked,[ix]:!c},missing:{...x.missing,[ix]:false}})),
+          miss:()=>{this.upd(o.id,x=>({...x,missing:{...x.missing,[ix]:!m},checked:{...x.checked,[ix]:false}}));if(!m)this.notify(o.name.split(' ')[0]+' avisado: '+i[1]+' em falta');}};})};}
+    const next={new:'picking',picking:'ready',ready:o&&o.mode==='retirada'?'done':'out',out:'done'};
+    const msgs={new:'Pedido aceito',picking:'Pronto! Cliente avisado',ready:o&&o.mode==='retirada'?'Retirada concluída':'Saiu para entrega',out:'Entregue'};
+    const counts=m=>st.orders.filter(x=>x.stage!=='done'&&(m==='todos'||x.mode===m)).length;
+    const now=new Date();
+    return{
+      columns:cols,hasSel:!!o,noSel:!o,sel,
+      advance:()=>{if(!o)return;if(o.stage==='picking'&&o.items.some((_,i)=>!o.checked[i]&&!o.missing[i]))return;const ns=next[o.stage];this.upd(o.id,x=>({...x,stage:ns}));this.notify(msgs[o.stage]);if(ns==='done'){const rest=st.orders.find(x=>x.id!==o.id&&x.stage!=='done');this.setState({sel:rest?rest.id:null});}},
+      reject:()=>{if(!o)return;this.upd(o.id,x=>({...x,stage:'done'}));this.notify('Pedido recusado, cliente avisado');const rest=st.orders.find(x=>x.id!==o.id&&x.stage!=='done');this.setState({sel:rest?rest.id:null});},
+      whats:()=>o&&this.notify('Abrindo WhatsApp de '+o.name.split(' ')[0]),
+      filters:[['todos','Todos','list'],['entrega','Entregas','door_front'],['retirada','Retiradas','storefront']].map(([k,l,i])=>({label:l+' · '+counts(k),icon:i,pick:()=>this.setState({filter:k}),bg:st.filter===k?'#FDEBDC':'#FFFFFF',fg:st.filter===k?'#C25407':'#4A2512',border:st.filter===k?'#E8650A':'#EEE4D7'})),
+      toggleOpen:()=>this.setState(s=>({open:!s.open})),openLabel:st.open?'Recebendo pedidos':'Pausado',openBg:st.open?'#E7F2EA':'#F3EADF',openFg:st.open?'#2E6B43':'#8A6F5E',openDot:st.open?'#3F8F5A':'#C9B8A6',
+      clock:'Turno manhã · '+now.getHours()+'h'+String(now.getMinutes()).padStart(2,'0'),
+      toastText:st.toast,toastY:st.toastOn?'0px':'-120px',toastO:st.toastOn?1:0
+    };
+  }
+}
+</script>
+</body>
+</html>

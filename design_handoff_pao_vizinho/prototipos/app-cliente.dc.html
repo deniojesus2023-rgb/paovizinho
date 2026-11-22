@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@500;700&family=Red+Hat+Text:wght@400;500;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..24,400,0..1,0&display=swap" rel="stylesheet">
+<style>[style*="flex-direction:column"]>*,[style*="flex-direction: column"]>*{flex-shrink:0}[style*="overflow"]{scrollbar-width:none}[style*="overflow"]::-webkit-scrollbar{display:none}body{margin:0;background:#F3ECE2;font-family:'Red Hat Text',sans-serif;color:#4A2512;-webkit-font-smoothing:antialiased}a{color:#E8650A}a:hover{color:#4A2512}*{box-sizing:border-box}button{font-family:inherit;cursor:pointer;transition:background-color .2s,border-color .2s,color .2s,transform .15s,box-shadow .2s}button:active{transform:scale(.97)}</style>
+</helmet>
+
+<div style="min-height:100vh;display:flex;flex-wrap:wrap;gap:56px;align-items:center;justify-content:center;padding:40px 24px;">
+
+  <div style="max-width:280px;display:grid;gap:24px;">
+    <img src="app/logo-horizontal-cor.svg" alt="pão vizinho" style="width:180px;">
+    <div style="display:grid;gap:8px;"><div style="font-family:'Red Hat Display',sans-serif;font-weight:700;font-size:28px;letter-spacing:-.02em;line-height:1.15;">App de pedidos</div><div style="font-size:15px;line-height:1.55;color:#8A6F5E;">Protótipo navegável, v5. Toque nos produtos e finalize um pedido, ou pule para uma tela.</div></div>
+    <div style="display:grid;gap:2px;border-top:1px solid #E3D7C7;">
+      <sc-for list="{{ jumps }}" as="j" hint-placeholder-count="5">
+        <button onClick="{{ j.go }}" style="display:flex;justify-content:space-between;align-items:center;border:none;border-bottom:1px solid #E3D7C7;background:none;padding:14px 0;font-size:15px;font-weight:{{ j.w }};color:{{ j.fg }};text-align:left;"><span>{{ j.label }}</span><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;">arrow_forward</span></button>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="width:390px;height:844px;flex-shrink:0;border-radius:56px;background:#20140D;padding:11px;box-shadow:0 40px 80px -20px rgba(74,37,18,.35),0 0 0 1px #3A2618;">
+    <div style="position:relative;width:100%;height:100%;border-radius:46px;overflow:hidden;background:#FFFBF5;display:flex;flex-direction:column;">
+      <div style="height:50px;display:flex;align-items:center;justify-content:space-between;padding:4px 30px 0;font-size:15px;font-weight:700;"><span>9:41</span><span style="position:absolute;left:50%;top:11px;transform:translateX(-50%);width:120px;height:34px;border-radius:999px;background:#20140D;"></span><span style="display:flex;gap:4px;white-space:nowrap;"><span style="font-family:'Material Symbols Rounded';font-size:17px;line-height:1;">signal_cellular_alt</span><span style="font-family:'Material Symbols Rounded';font-size:17px;line-height:1;">wifi</span><span style="font-family:'Material Symbols Rounded';font-size:19px;line-height:1;">battery_full</span></span></div>
+
+      <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+        <div style="flex:1;overflow-y:auto;padding:6px 20px 150px;display:flex;flex-direction:column;gap:28px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <img src="app/logo-horizontal-cor.svg" alt="pão vizinho" style="height:28px;">
+            <button onClick="{{ goAddress }}" style="border:none;background:none;padding:0;display:flex;align-items:center;gap:4px;font-size:13px;font-weight:700;color:#8A6F5E;"><span style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1;color:#E8650A;">location_on</span>Bloco B · 52</button>
+          </div>
+          <div style="display:grid;gap:14px;">
+            <div style="font-family:'Red Hat Display',sans-serif;font-weight:700;font-size:26px;letter-spacing:-.02em;line-height:1.15;">Bom dia, Marina.<br><span style="color:#8A6F5E;font-weight:500;">Vai o de sempre?</span></div>
+            <div style="border-radius:22px;background:#FFFFFF;border:1px solid #EEE4D7;padding:18px;display:grid;gap:16px;box-shadow:0 8px 24px -12px rgba(74,37,18,.18);">
+              <div style="display:flex;align-items:center;gap:14px;">
+                <div style="display:flex;"><span style="width:52px;height:52px;border-radius:16px;background:#F5ECE0;border:3px solid #FFFFFF;display:flex;align-items:center;justify-content:center;"><img src="app/simbolo-cor.svg" alt="" style="width:26px;opacity:.5;"></span><span style="width:52px;height:52px;border-radius:16px;background:#FDEBDC;border:3px solid #FFFFFF;margin-left:-16px;display:flex;align-items:center;justify-content:center;font-family:'Material Symbols Rounded';font-size:22px;color:#C25407;">coffee</span></div>
+                <div style="flex:1;display:grid;gap:3px;"><span style="font-weight:700;font-size:16px;">6 pães franceses + café</span><span style="font-size:13px;color:#8A6F5E;">Último pedido · ontem, 6h42</span></div>
+              </div>
+              <button onClick="{{ repeatLast }}" style="height:52px;border:none;border-radius:14px;background:#E8650A;color:#FFFFFF;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:space-between;padding:0 18px;"><span style="display:flex;align-items:center;gap:8px;"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;">replay</span>Repetir pedido</span><span>R$ 10,40</span></button>
+              <button onClick="{{ goOrders }}" style="border:none;background:none;padding:0;color:#8A6F5E;font-size:13px;font-weight:700;justify-self:center;">Ver outros pedidos</button>
+            </div>
+          </div>
+          <div style="display:grid;gap:4px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:8px;"><span style="font-family:'Red Hat Display',sans-serif;font-weight:700;font-size:18px;">Cardápio</span><span style="font-family:'Material Symbols Rounded';font-size:22px;color:#8A6F5E;">search</span></div>
+            <div style="display:flex;gap:20px;border-bottom:1px solid #EEE4D7;margin-bottom:4px;overflow-x:auto;">
+              <sc-for list="{{ cats }}" as="c" hint-placeholder-count="5">
+                <button onClick="{{ c.pick }}" style="flex-shrink:0;border:none;background:none;padding:8px 0;margin-bottom:-1px;font-size:14px;font-weight:{{ c.w }};color:{{ c.tfg }};border-bottom:2px solid {{ c.line }};">{{ c.label }}</button>
+              </sc-for>
+            </div>
+            <div style="display:grid;">
+              <sc-for list="{{ products }}" as="p" hint-placeholder-count="5">
+                <div style="display:flex;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid #EEE4D7;">
+                  <button onClick="{{ p.open }}" style="width:76px;height:76px;flex-shrink:0;border:none;border-radius:16px;background:#F5ECE0;display:flex;align-items:center;justify-content:center;"><img src="app/simbolo-simplificado-chocolate.svg" alt="" style="width:30px;opacity:.18;"></button>
+                  <button onClick="{{ p.open }}" style="flex:1;border:none;background:none;padding:0;text-align:left;display:grid;gap:3px;color:#4A2512;">
+                    <span style="font-weight:700;font-size:15px;">{{ p.name }}</span>
+                    <span style="font-size:13px;line-height:1.4;color:#8A6F5E;">{{ p.short }}</span>
+                    <span style="font-weight:700;font-size:14px;">{{ p.priceF }} <span style="font-weight:400;color:#8A6F5E;">· {{ p.unit }}</span></span>
+                  </button>
+                  <sc-if value="{{ p.inCart }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:flex;align-items:center;border:1px solid #EEE4D7;border-radius:12px;background:#FFFFFF;"><button onClick="{{ p.dec }}" style="width:34px;height:36px;border:none;background:none;color:#4A2512;font-family:'Material Symbols Rounded';font-size:18px;">remove</button><span style="font-weight:700;font-size:14px;min-width:18px;text-align:center;">{{ p.qty }}</span><button onClick="{{ p.inc }}" style="width:34px;height:36px;border:none;background:none;color:#E8650A;font-family:'Material Symbols Rounded';font-size:18px;">add</button></div>
+                  </sc-if>
+                  <sc-if value="{{ p.notInCart }}" hint-placeholder-val="{{ true }}">
+                    <button onClick="{{ p.inc }}" style="width:38px;height:38px;border:1px solid #EEE4D7;border-radius:12px;background:#FFFFFF;color:#E8650A;font-family:'Material Symbols Rounded';font-size:22px;line-height:1;">add</button>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isProduct }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1;overflow-y:auto;display:flex;flex-direction:column;margin-top:-50px;">
+          <div style="position:relative;height:340px;background:#F5ECE0;display:flex;align-items:center;justify-content:center;">
+            <img src="app/simbolo-simplificado-chocolate.svg" alt="" style="width:80px;opacity:.14;">
+            <button onClick="{{ goHome }}" style="position:absolute;top:58px;left:16px;width:44px;height:44px;border:none;border-radius:999px;background:#FFFFFF;color:#4A2512;font-family:'Material Symbols Rounded';font-size:22px;box-shadow:0 2px 10px rgba(74,37,18,.12);">arrow_back</button>
+            <button style="position:absolute;top:58px;right:16px;width:44px;height:44px;border:none;border-radius:999px;background:#FFFFFF;color:#4A2512;font-family:'Material Symbols Rounded';font-size:22px;box-shadow:0 2px 10px rgba(74,37,18,.12);">favorite</button>
+          </div>
+          <div style="margin-top:-24px;border-radius:24px 24px 0 0;background:#FFFBF5;padding:24px 20px;display:flex;flex-direction:column;gap:24px;flex:1;">
+            <div style="display:grid;gap:8px;"><div style="font-family:'Red Hat Display',sans-serif;font-weight:700;font-size:26px;letter-spacing:-.02em;">{{ sel.name }}</div><div style="font-size:15px;line-height:1.55;color:#8A6F5E;">{{ sel.desc }}</div><div style="font-weight:700;font-size:18px;">{{ sel.priceF }} <span style="font-size:14px;font-weight:400;color:#8A6F5E;">/ {{ sel.unit }}</span></div></div>
+            <sc-if value="{{ sel.hasPonto }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;gap:4px;"><div style="display:flex;justify-content:space-between;align-items:baseline;"><span style="font-weight:700;font-size:15px;">Ponto do pão</span><span style="font-size:12px;color:#8A6F5E;">Escolha 1</span></div>
+                <div style="display:grid;"><sc-for list="{{ pontos }}" as="o" hint-placeholder-count="3"><button onClick="{{ o.pick }}" style="display:flex;justify-content:space-between;align-items:center;border:none;border-bottom:1px solid #EEE4D7;background:none;padding:14px 0;font-size:15px;color:#4A2512;text-align:left;"><span>{{ o.label }}</span><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;color:{{ o.c }};">{{ o.icon }}</span></button></sc-for></div>
+              </div>
+            </sc-if>
+          </div>
+          <div style="position:sticky;bottom:0;background:#FFFBF5;border-top:1px solid #EEE4D7;padding:14px 20px 34px;display:flex;gap:12px;">
+            <div style="display:flex;align-items:center;border:1px solid #EEE4D7;border-radius:14px;background:#FFFFFF;"><button onClick="{{ selDec }}" style="width:44px;height:52px;border:none;background:none;color:#4A2512;font-family:'Material Symbols Rounded';font-size:20px;">remove</button><span style="font-weight:700;font-size:16px;min-width:22px;text-align:center;">{{ selQty }}</span><button onClick="{{ selInc }}" style="width:44px;height:52px;border:none;background:none;color:#E8650A;font-family:'Material Symbols Rounded';font-size:20px;">add</button></div>
+            <button onClick="{{ addSel }}" style="flex:1;height:54px;border:none;border-radius:14px;background:#E8650A;color:#FFFFFF;font-weight:700;font-size:15px;display:flex;justify-content:space-between;align-items:center;padding:0 18px;"><span>Adicionar</span><span>{{ selTotalF }}</span></button>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isCart }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1;overflow-y:auto;display:flex;flex-direction:column;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 16px 10px;"><button onClick="{{ goHome }}" style="width:44px;height:44px;border:none;background:none;color:#4A2512;font-family:'Material Symbols Rounded';font-size:24px;">arrow_back</button><span style="font-weight:700;font-size:16px;">Sacola</span><span style="width:44px;"></span></div>
+          <div style="padding:0 20px 24px;display:flex;flex-direction:column;gap:28px;">
+            <sc-if value="{{ cartEmpty }}" hint-placeholder-val="{{ false }}"><div style="border:1px dashed #E3D7C7;border-radius:16px;padding:28px;text-align:center;font-size:15px;color:#8A6F5E;">Sua sacola está vazia.</div></sc-if>
+            <div style="display:grid;">
+              <sc-for list="{{ cartItems }}" as="i" hint-placeholder-count="2">
+                <div style="display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid #EEE4D7;">
+                  <div style="width:52px;height:52px;flex-shrink:0;border-radius:12px;background:#F5ECE0;"></div>
+                  <div style="flex:1;display:grid;gap:2px;"><span style="font-weight:700;font-size:15px;">{{ i.name }}</span><span style="font-size:13px;color:#8A6F5E;">{{ i.note }}</span></div>
+                  <div style="display:grid;justify-items:end;gap:6px;"><span style="font-weight:700;font-size:14px;">{{ i.totalF }}</span><div style="display:flex;align-items:center;border:1px solid #EEE4D7;border-radius:10px;background:#FFFFFF;"><button onClick="{{ i.dec }}" style="width:30px;height:30px;border:none;background:none;color:#4A2512;font-family:'Material Symbols Rounded';font-size:16px;">remove</button><span style="font-weight:700;font-size:13px;min-width:16px;text-align:center;">{{ i.qty }}</span><button onClick="{{ i.inc }}" style="width:30px;height:30px;border:none;background:none;color:#E8650A;font-family:'Material Symbols Rounded';font-size:16px;">add</button></div></div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="display:grid;gap:12px;"><span style="font-weight:700;font-size:15px;">Receber</span>
+              <div style="display:grid;grid-template-columns:1fr 1fr;padding:4px;border-radius:14px;background:#F3EADF;"><sc-for list="{{ modes }}" as="m" hint-placeholder-count="2"><button onClick="{{ m.pick }}" style="border:none;border-radius:10px;padding:11px 8px;font-size:14px;font-weight:700;background:{{ m.bg }};color:#4A2512;box-shadow:{{ m.sh }};">{{ m.label }}</button></sc-for></div>
+              <div style="display:flex;gap:8px;align-items:center;font-size:13px;color:#8A6F5E;"><span style="font-family:'Material Symbols Rounded';font-size:18px;line-height:1;">{{ modeIcon }}</span>{{ modeNote }}</div>
+            </div>
+            <div style="display:grid;gap:12px;"><span style="font-weight:700;font-size:15px;">Quando</span>
+              <div style="display:flex;gap:8px;overflow-x:auto;margin:0 -20px;padding:0 20px;"><sc-for list="{{ slots }}" as="s" hint-placeholder-count="4"><button onClick="{{ s.pick }}" style="flex-shrink:0;min-width:104px;border:1.5px solid {{ s.border }};border-radius:14px;padding:12px;text-align:left;background:{{ s.bg }};color:#4A2512;display:grid;gap:2px;"><span style="font-weight:700;font-size:14px;">{{ s.label }}</span><span style="font-size:12px;color:#8A6F5E;">{{ s.sub }}</span></button></sc-for></div>
+            </div>
+            <div style="display:grid;gap:10px;font-size:14px;color:#8A6F5E;">
+              <div style="display:flex;justify-content:space-between;"><span>Subtotal</span><span style="color:#4A2512;">{{ subF }}</span></div>
+              <div style="display:flex;justify-content:space-between;"><span>Entrega</span><span style="color:#4A2512;">{{ feeF }}</span></div>
+              <div style="display:flex;justify-content:space-between;border-top:1px solid #EEE4D7;padding-top:12px;font-weight:700;font-size:17px;color:#4A2512;"><span>Total</span><span>{{ totalF }}</span></div>
+            </div>
+          </div>
+          <div style="position:sticky;bottom:0;margin-top:auto;background:#FFFBF5;border-top:1px solid #EEE4D7;padding:14px 20px 34px;"><button onClick="{{ goPay }}" style="width:100%;height:54px;border:none;border-radius:14px;background:#E8650A;color:#FFFFFF;font-weight:700;font-size:15px;">Continuar para pagamento</button></div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isPay }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1;overflow-y:auto;display:flex;flex-direction:column;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 16px 10px;"><button onClick="{{ goCart }}" style="width:44px;height:44px;border:none;background:none;color:#4A2512;font-family:'Material Symbols Rounded';font-size:24px;">arrow_back</button><span style="font-weight:700;font-size:16px;">Pagamento</span><span style="width:44px;"></span></div>
+          <div style="padding:0 20px 24px;display:flex;flex-direction:column;gap:28px;">
+            <div style="display:grid;gap:10px;"><sc-for list="{{ pays }}" as="y" hint-placeholder-count="3"><button onClick="{{ y.pick }}" style="display:flex;gap:14px;align-items:center;border:1.5px solid {{ y.border }};border-radius:16px;padding:14px 16px;background:#FFFFFF;color:#4A2512;text-align:left;"><span style="width:40px;height:40px;border-radius:12px;background:#F5ECE0;display:flex;align-items:center;justify-content:center;font-family:'Material Symbols Rounded';font-size:22px;">{{ y.icon }}</span><span style="flex:1;display:grid;gap:2px;"><span style="font-weight:700;font-size:15px;">{{ y.label }}</span><span style="font-size:13px;color:#8A6F5E;">{{ y.sub }}</span></span><span style="font-family:'Material Symbols Rounded';font-size:22px;color:{{ y.c }};">{{ y.radio }}</span></button></sc-for></div>
+            <div style="display:grid;gap:10px;font-size:14px;color:#8A6F5E;">
+              <span style="font-weight:700;font-size:15px;color:#4A2512;">Resumo</span>
+              <div style="display:flex;justify-content:space-between;"><span>{{ countLabel }}</span><span style="color:#4A2512;">{{ subF }}</span></div>
+              <div style="display:flex;justify-content:space-between;"><span>{{ modeLabel }} · {{ slotLabel }}</span><span style="color:#4A2512;">{{ feeF }}</span></div>
+              <div style="display:flex;justify-content:space-between;border-top:1px solid #EEE4D7;padding-top:12px;font-weight:700;font-size:17px;color:#4A2512;"><span>Total</span><span>{{ totalF }}</span></div>
+            </div>
+            <label style="display:grid;gap:8px;"><span style="font-weight:700;font-size:15px;">Recado para a equipe</span><textarea placeholder="Ex.: interfone com defeito, me chama no WhatsApp" style="min-height:84px;border:1px solid #EEE4D7;border-radius:14px;padding:12px 14px;font-family:inherit;font-size:15px;background:#FFFFFF;color:#4A2512;resize:none;outline:none;"></textarea></label>
+          </div>
+          <div style="position:sticky;bottom:0;margin-top:auto;background:#FFFBF5;border-top:1px solid #EEE4D7;padding:14px 20px 34px;"><button onClick="{{ confirm }}" style="width:100%;height:54px;border:none;border-radius:14px;background:#E8650A;color:#FFFFFF;font-weight:700;font-size:15px;display:flex;justify-content:space-between;align-items:center;padding:0 18px;"><span>Fazer pedido</span><span>{{ totalF }}</span></button></div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isOrder }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1;overflow-y:auto;padding:6px 20px 120px;display:flex;flex-direction:column;gap:24px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;"><span style="font-weight:700;font-size:16px;">Pedido #0427</span><span style="font-size:13px;font-weight:700;color:#E8650A;background:#FDEBDC;padding:6px 10px;border-radius:999px;">{{ statusPill }}</span></div>
+          <div style="display:grid;gap:6px;"><div style="font-size:13px;color:#8A6F5E;">{{ modeLabel }} · {{ slotLabel }}</div><div style="font-family:'Red Hat Display',sans-serif;font-weight:700;font-size:28px;letter-spacing:-.02em;line-height:1.15;">{{ statusTitle }}</div></div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;"><sc-for list="{{ steps }}" as="t" hint-placeholder-count="4"><span style="height:5px;border-radius:999px;background:{{ t.bar }};transition:background-color .5s;"></span></sc-for></div>
+          <div style="display:grid;">
+            <sc-for list="{{ steps }}" as="t" hint-placeholder-count="4">
+              <div style="display:flex;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid #EEE4D7;"><span style="width:32px;height:32px;border-radius:999px;background:{{ t.dot }};color:{{ t.ic }};display:flex;align-items:center;justify-content:center;font-family:'Material Symbols Rounded';font-size:18px;">{{ t.icon }}</span><span style="flex:1;display:grid;gap:2px;"><span style="font-weight:700;font-size:15px;color:{{ t.fg }};">{{ t.label }}</span><span style="font-size:13px;color:#8A6F5E;">{{ t.sub }}</span></span><span style="font-size:13px;color:#8A6F5E;">{{ t.time }}</span></div>
+            </sc-for>
+          </div>
+          <div style="border:1px solid #EEE4D7;background:#FFFFFF;border-radius:16px;padding:16px;display:flex;gap:12px;align-items:center;"><div style="width:44px;height:44px;flex-shrink:0;border-radius:999px;background:#F2C997;display:flex;align-items:center;justify-content:center;font-weight:700;">C</div><div style="flex:1;display:grid;gap:2px;"><span style="font-weight:700;font-size:15px;">Cida, do balcão</span><span style="font-size:13px;line-height:1.4;color:#8A6F5E;">Seu pedido já tá separado no seu nome.</span></div><span style="width:40px;height:40px;border-radius:12px;border:1px solid #EEE4D7;display:flex;align-items:center;justify-content:center;font-family:'Material Symbols Rounded';font-size:20px;color:#E8650A;">chat</span></div>
+          <button onClick="{{ nextStep }}" style="border:none;background:none;color:#8A6F5E;font-size:13px;text-decoration:underline;">Simular próximo status</button>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isWelcome }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;inset:0;z-index:5;background:linear-gradient(180deg,#FFF6EA 0%,#FDEBDC 100%);display:flex;flex-direction:column;">
+          <div style="position:absolute;inset:0;background:url(app/padrao-chocolate.svg) center top/120px 90px;opacity:.07;-webkit-mask-image:radial-gradient(circle at 50% 30%,transparent 0,transparent 110px,#000 220px);mask-image:radial-gradient(circle at 50% 30%,transparent 0,transparent 110px,#000 220px);"></div>
+          <div style="position:relative;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:48px 0 28px;">
+            <div style="width:168px;height:168px;border-radius:999px;background:#FFFBF5;display:flex;align-items:center;justify-content:center;box-shadow:0 24px 50px -20px rgba(74,37,18,.4),0 0 0 10px rgba(255,251,245,.5);"><img src="app/simbolo-cor.svg" alt="" style="width:96px;"></div>
+          </div>
+          <div style="position:relative;background:#FFFBF5;border-radius:32px 32px 0 0;padding:14px 24px 40px;display:grid;box-shadow:0 -12px 32px -18px rgba(74,37,18,.3);">
+            <span style="justify-self:center;width:40px;height:4px;border-radius:999px;background:#EEE4D7;margin-bottom:22px;"></span>
+            <img src="app/logo-horizontal-cor.svg" alt="pão vizinho" style="width:150px;margin-bottom:18px;">
+            <div style="font-family:'Red Hat Display',sans-serif;font-weight:700;font-size:28px;letter-spacing:-.025em;line-height:1.12;margin-bottom:10px;">Seu pãozinho,<br>pertinho de casa.</div>
+            <div style="font-size:15px;line-height:1.5;color:#8A6F5E;margin-bottom:24px;">Peça do apê e receba fresquinho na porta, ou retire no balcão.</div>
+            <div style="display:grid;gap:10px;">
+              <button onClick="{{ goSignup }}" style="height:56px;border:none;border-radius:16px;background:#E8650A;color:#FFFFFF;font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 10px 20px -10px rgba(232,101,10,.7);"><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;">chat</span>Entrar com WhatsApp</button>
+              <button onClick="{{ goHome }}" style="height:52px;border:1px solid #EEE4D7;border-radius:16px;background:#FFFFFF;color:#4A2512;font-weight:700;font-size:15px;">Só dar uma olhada</button>
+            </div>
+            <div style="margin-top:16px;text-align:center;font-size:12px;line-height:1.5;color:#8A6F5E;">Ao continuar, você aceita os <a href="#" style="color:#4A2512;font-weight:700;">Termos</a> e a <a href="#" style="color:#4A2512;font-weight:700;">Privacidade</a>.</div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isSignup }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1;overflow-y:auto;display:flex;flex-direction:column;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 16px 10px;"><button onClick="{{ goWelcome }}" style="width:44px;height:44px;border:none;background:none;color:#4A2512;font-family:'Material Symbols Rounded';font-size:24px;">arrow_back</button><span style="font-weight:700;font-size:16px;">Cadastro</span><span style="width:44px;"></span></div>
+          <div style="padding:0 20px 24px;display:flex;flex-direction:column;gap:20px;">
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:6px;"><span style="height:4px;border-radius:999px;background:#E8650A;"></span><span style="height:4px;border-radius:999px;background:#E8650A;"></span></div>
+            <div style="display:grid;gap:6px;"><div style="font-family:'Red Hat Display',sans-serif;font-weight:700;font-size:24px;letter-spacing:-.02em;">Onde você mora?</div><div style="font-size:14px;color:#8A6F5E;">Assim a gente leva até a sua porta.</div></div>
+            <label style="display:grid;gap:6px;"><span style="font-size:13px;font-weight:700;color:#8A6F5E;">Seu nome</span><input value="Marina" placeholder="" style="height:50px;border:1px solid #EEE4D7;border-radius:14px;padding:0 14px;font-family:inherit;font-size:15px;background:#FFFFFF;color:#4A2512;outline:none;"></label>
+            <label style="display:grid;gap:6px;"><span style="font-size:13px;font-weight:700;color:#8A6F5E;">Celular (WhatsApp)</span><input value="(11) 98765-4321" placeholder="" style="height:50px;border:1px solid #EEE4D7;border-radius:14px;padding:0 14px;font-family:inherit;font-size:15px;background:#FFFFFF;color:#4A2512;outline:none;"></label>
+            <label style="display:grid;gap:6px;"><span style="font-size:13px;font-weight:700;color:#8A6F5E;">Condomínio</span><input value="Residencial Jardim das Flores" placeholder="" style="height:50px;border:1px solid #EEE4D7;border-radius:14px;padding:0 14px;font-family:inherit;font-size:15px;background:#FFFFFF;color:#4A2512;outline:none;"></label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;"><label style="display:grid;gap:6px;"><span style="font-size:13px;font-weight:700;color:#8A6F5E;">Bloco / Torre</span><input value="B" placeholder="" style="height:50px;border:1px solid #EEE4D7;border-radius:14px;padding:0 14px;font-family:inherit;font-size:15px;background:#FFFFFF;color:#4A2512;outline:none;"></label><label style="display:grid;gap:6px;"><span style="font-size:13px;font-weight:700;color:#8A6F5E;">Apartamento</span><input value="52" placeholder="" style="height:50px;border:1px solid #EEE4D7;border-radius:14px;padding:0 14px;font-family:inherit;font-size:15px;background:#FFFFFF;color:#4A2512;outline:none;"></label></div>
+            <label style="display:grid;gap:6px;"><span style="font-size:13px;font-weight:700;color:#8A6F5E;">Ponto de referência</span><input value="" placeholder="Ex.: portaria 2, interfone 52" style="height:50px;border:1px solid #EEE4D7;border-radius:14px;padding:0 14px;font-family:inherit;font-size:15px;background:#FFFFFF;color:#4A2512;outline:none;"></label>
+          </div>
+          <div style="position:sticky;bottom:0;margin-top:auto;background:#FFFBF5;border-top:1px solid #EEE4D7;padding:14px 20px 34px;"><button onClick="{{ finishSignup }}" style="width:100%;height:54px;border:none;border-radius:14px;background:#E8650A;color:#FFFFFF;font-weight:700;font-size:15px;">Começar a pedir</button></div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isAccount }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1;overflow-y:auto;padding:6px 20px 120px;display:flex;flex-direction:column;gap:24px;">
+          <div style="display:flex;align-items:center;gap:14px;"><div style="width:60px;height:60px;border-radius:999px;background:#F2C997;display:flex;align-items:center;justify-content:center;font-family:'Red Hat Display',sans-serif;font-weight:700;font-size:22px;">M</div><div style="display:grid;gap:2px;"><span style="font-family:'Red Hat Display',sans-serif;font-weight:700;font-size:22px;">Marina Souza</span><span style="font-size:13px;color:#8A6F5E;">Vizinha desde março · 38 pedidos</span></div></div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+            <div style="border:1px solid #EEE4D7;background:#FFFFFF;border-radius:14px;padding:12px;display:grid;gap:2px;"><span style="font-family:'Red Hat Display',sans-serif;font-weight:700;font-size:20px;">38</span><span style="font-size:12px;color:#8A6F5E;">pedidos</span></div>
+            <div style="border:1px solid #EEE4D7;background:#FFFFFF;border-radius:14px;padding:12px;display:grid;gap:2px;"><span style="font-family:'Red Hat Display',sans-serif;font-weight:700;font-size:20px;color:#E8650A;">{{ subBadge }}</span><span style="font-size:12px;color:#8A6F5E;">pão todo dia</span></div>
+            <div style="border:1px solid #EEE4D7;background:#FFFFFF;border-radius:14px;padding:12px;display:grid;gap:2px;"><span style="font-family:'Red Hat Display',sans-serif;font-weight:700;font-size:20px;">R$ 12</span><span style="font-size:12px;color:#8A6F5E;">economizados</span></div>
+          </div>
+          <div style="display:grid;">
+            <button onClick="{{ goAddress }}" style="display:flex;align-items:center;gap:14px;border:none;border-bottom:1px solid #EEE4D7;background:none;padding:14px 0;text-align:left;color:#4A2512;"><span style="width:40px;height:40px;border-radius:12px;background:#F5ECE0;display:flex;align-items:center;justify-content:center;font-family:'Material Symbols Rounded';font-size:20px;">location_on</span><span style="flex:1;display:grid;gap:2px;"><span style="font-weight:700;font-size:15px;">Endereços</span><span style="font-size:13px;color:#8A6F5E;">Bloco B · Apto 52</span></span><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;color:#C9B8A6;">chevron_right</span></button>
+            <button onClick="{{ goSub }}" style="display:flex;align-items:center;gap:14px;border:none;border-bottom:1px solid #EEE4D7;background:none;padding:14px 0;text-align:left;color:#4A2512;"><span style="width:40px;height:40px;border-radius:12px;background:#F5ECE0;display:flex;align-items:center;justify-content:center;font-family:'Material Symbols Rounded';font-size:20px;">event_repeat</span><span style="flex:1;display:grid;gap:2px;"><span style="font-weight:700;font-size:15px;">Pão todo dia</span><span style="font-size:13px;color:#8A6F5E;">{{ subSummary }}</span></span><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;color:#C9B8A6;">chevron_right</span></button>
+            <button onClick="{{ goOrders }}" style="display:flex;align-items:center;gap:14px;border:none;border-bottom:1px solid #EEE4D7;background:none;padding:14px 0;text-align:left;color:#4A2512;"><span style="width:40px;height:40px;border-radius:12px;background:#F5ECE0;display:flex;align-items:center;justify-content:center;font-family:'Material Symbols Rounded';font-size:20px;">receipt_long</span><span style="flex:1;display:grid;gap:2px;"><span style="font-weight:700;font-size:15px;">Histórico de pedidos</span><span style="font-size:13px;color:#8A6F5E;">Repita um pedido em um toque</span></span><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;color:#C9B8A6;">chevron_right</span></button>
+            <button onClick="{{ noop }}" style="display:flex;align-items:center;gap:14px;border:none;border-bottom:1px solid #EEE4D7;background:none;padding:14px 0;text-align:left;color:#4A2512;"><span style="width:40px;height:40px;border-radius:12px;background:#F5ECE0;display:flex;align-items:center;justify-content:center;font-family:'Material Symbols Rounded';font-size:20px;">credit_card</span><span style="flex:1;display:grid;gap:2px;"><span style="font-weight:700;font-size:15px;">Pagamentos</span><span style="font-size:13px;color:#8A6F5E;">Pix · Cartão •••• 4821</span></span><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;color:#C9B8A6;">chevron_right</span></button>
+            <button onClick="{{ noop }}" style="display:flex;align-items:center;gap:14px;border:none;border-bottom:1px solid #EEE4D7;background:none;padding:14px 0;text-align:left;color:#4A2512;"><span style="width:40px;height:40px;border-radius:12px;background:#F5ECE0;display:flex;align-items:center;justify-content:center;font-family:'Material Symbols Rounded';font-size:20px;">notifications</span><span style="flex:1;display:grid;gap:2px;"><span style="font-weight:700;font-size:15px;">Avisos e novidades</span><span style="font-size:13px;color:#8A6F5E;">Ofertas e lembretes do seu pedido</span></span><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;color:#C9B8A6;">chevron_right</span></button>
+            <button onClick="{{ goWelcome }}" style="display:flex;align-items:center;gap:14px;border:none;border-bottom:1px solid #EEE4D7;background:none;padding:14px 0;text-align:left;color:#4A2512;"><span style="width:40px;height:40px;border-radius:12px;background:#F5ECE0;display:flex;align-items:center;justify-content:center;font-family:'Material Symbols Rounded';font-size:20px;">logout</span><span style="flex:1;display:grid;gap:2px;"><span style="font-weight:700;font-size:15px;">Sair</span><span style="font-size:13px;color:#8A6F5E;"></span></span><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;color:#C9B8A6;">chevron_right</span></button>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isAddress }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1;overflow-y:auto;display:flex;flex-direction:column;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 16px 10px;"><button onClick="{{ goAccount }}" style="width:44px;height:44px;border:none;background:none;color:#4A2512;font-family:'Material Symbols Rounded';font-size:24px;">arrow_back</button><span style="font-weight:700;font-size:16px;">Endereços</span><span style="width:44px;"></span></div>
+          <div style="padding:0 20px 24px;display:flex;flex-direction:column;gap:16px;">
+            <sc-for list="{{ addresses }}" as="a" hint-placeholder-count="2">
+              <button onClick="{{ a.pick }}" style="display:flex;gap:14px;align-items:center;border:1.5px solid {{ a.border }};border-radius:16px;padding:14px 16px;background:#FFFFFF;text-align:left;color:#4A2512;"><span style="width:40px;height:40px;border-radius:12px;background:#F5ECE0;display:flex;align-items:center;justify-content:center;font-family:'Material Symbols Rounded';font-size:20px;">{{ a.icon }}</span><span style="flex:1;display:grid;gap:2px;"><span style="font-weight:700;font-size:15px;">{{ a.label }}</span><span style="font-size:13px;color:#8A6F5E;">{{ a.sub }}</span></span><span style="font-family:'Material Symbols Rounded';font-size:22px;color:{{ a.c }};">{{ a.radio }}</span></button>
+            </sc-for>
+            <button style="height:50px;border:1px dashed #D9C9B6;border-radius:14px;background:none;color:#E8650A;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;gap:6px;"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;">add</span>Adicionar endereço</button>
+            <div style="border-radius:16px;background:#F5ECE0;padding:14px 16px;display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.45;color:#8A6F5E;"><span style="font-family:'Material Symbols Rounded';font-size:20px;line-height:1;color:#E8650A;">info</span>Entregamos só dentro do condomínio. Fora dele, é retirada no balcão.</div>
+          </div>
+          <div style="position:sticky;bottom:0;margin-top:auto;background:#FFFBF5;border-top:1px solid #EEE4D7;padding:14px 20px 34px;"><button onClick="{{ goAccount }}" style="width:100%;height:54px;border:none;border-radius:14px;background:#E8650A;color:#FFFFFF;font-weight:700;font-size:15px;">Salvar</button></div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isSub }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1;overflow-y:auto;display:flex;flex-direction:column;">
+          <div style="background:#FDEBDC;padding:6px 20px 0;display:grid;gap:14px;color:#4A2512;">
+            <div style="display:flex;align-items:center;justify-content:space-between;"><span style="font-size:12px;font-weight:700;letter-spacing:.06em;color:#C25407;">ASSINATURA</span><span style="font-size:12px;font-weight:700;background:{{ subPillBg }};color:{{ subPillFg }};padding:5px 10px;border-radius:999px;">{{ subBadge }}</span></div>
+            <div style="font-family:'Red Hat Display',sans-serif;font-weight:700;font-size:28px;letter-spacing:-.02em;line-height:1.1;">Pão todo dia,<br>na sua porta.</div>
+            <div style="font-size:14px;line-height:1.5;color:#8A6F5E;padding-bottom:20px;">Escolha os dias e o horário. A gente pendura o saquinho na sua maçaneta, sem precisar pedir.</div>
+            <div style="height:6px;margin:0 -20px;background:#E8650A;"></div>
+          </div>
+          <div style="padding:24px 20px;display:flex;flex-direction:column;gap:26px;">
+            <div style="display:grid;gap:10px;"><span style="font-weight:700;font-size:15px;">O que vai no saquinho</span>
+              <sc-for list="{{ subItems }}" as="si" hint-placeholder-count="3">
+                <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #EEE4D7;"><span style="flex:1;display:grid;gap:2px;"><span style="font-weight:700;font-size:15px;">{{ si.name }}</span><span style="font-size:12px;color:#8A6F5E;">{{ si.priceF }} cada</span></span><div style="display:flex;align-items:center;border:1px solid #EEE4D7;border-radius:10px;background:#FFFFFF;"><button onClick="{{ si.dec }}" style="width:32px;height:32px;border:none;background:none;color:#4A2512;font-family:'Material Symbols Rounded';font-size:16px;">remove</button><span style="font-weight:700;font-size:13px;min-width:18px;text-align:center;">{{ si.qty }}</span><button onClick="{{ si.inc }}" style="width:32px;height:32px;border:none;background:none;color:#E8650A;font-family:'Material Symbols Rounded';font-size:16px;">add</button></div></div>
+              </sc-for>
+            </div>
+            <div style="display:grid;gap:10px;"><span style="font-weight:700;font-size:15px;">Dias</span>
+              <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:6px;"><sc-for list="{{ days }}" as="d" hint-placeholder-count="7"><button onClick="{{ d.toggle }}" style="height:44px;border:1.5px solid {{ d.border }};border-radius:12px;background:{{ d.bg }};color:{{ d.fg }};font-weight:700;font-size:13px;">{{ d.label }}</button></sc-for></div>
+            </div>
+            <div style="display:grid;gap:10px;"><span style="font-weight:700;font-size:15px;">Horário de entrega</span>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);padding:4px;border-radius:14px;background:#F3EADF;"><sc-for list="{{ subTimes }}" as="h" hint-placeholder-count="3"><button onClick="{{ h.pick }}" style="border:none;border-radius:10px;padding:11px 6px;font-size:14px;font-weight:700;background:{{ h.bg }};color:#4A2512;box-shadow:{{ h.sh }};">{{ h.label }}</button></sc-for></div>
+            </div>
+            <div style="border:1px solid #EEE4D7;background:#FFFFFF;border-radius:16px;padding:16px;display:grid;gap:8px;font-size:14px;color:#8A6F5E;">
+              <div style="display:flex;justify-content:space-between;"><span>Por entrega</span><span style="color:#4A2512;">{{ subPerF }}</span></div>
+              <div style="display:flex;justify-content:space-between;"><span>{{ subDaysLabel }} por semana · sem taxa</span><span style="color:#4A2512;">Grátis</span></div>
+              <div style="display:flex;justify-content:space-between;border-top:1px solid #EEE4D7;padding-top:10px;font-weight:700;font-size:16px;color:#4A2512;"><span>Por semana</span><span>{{ subWeekF }}</span></div>
+            </div>
+          </div>
+          <div style="position:sticky;bottom:0;margin-top:auto;background:#FFFBF5;border-top:1px solid #EEE4D7;padding:14px 20px 34px;"><button onClick="{{ toggleSub }}" style="width:100%;height:54px;border:none;border-radius:14px;background:{{ subCtaBg }};color:{{ subCtaFg }};font-weight:700;font-size:15px;">{{ subCta }}</button></div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isOrders }}" hint-placeholder-val="{{ false }}">
+        <div style="flex:1;overflow-y:auto;padding:6px 20px 120px;display:flex;flex-direction:column;gap:20px;">
+          <div style="font-family:'Red Hat Display',sans-serif;font-weight:700;font-size:28px;letter-spacing:-.02em;">Pedidos</div>
+          <button onClick="{{ goOrder }}" style="border:none;border-radius:18px;background:#FDEBDC;color:#4A2512;padding:16px;display:grid;gap:12px;text-align:left;">
+            <span style="display:flex;justify-content:space-between;align-items:center;"><span style="font-size:12px;font-weight:700;letter-spacing:.06em;color:#C25407;">EM ANDAMENTO · #0427</span><span style="font-family:'Material Symbols Rounded';font-size:22px;line-height:1;color:#F2C997;">chevron_right</span></span>
+            <span style="font-family:'Red Hat Display',sans-serif;font-weight:700;font-size:18px;">{{ statusTitle }}</span>
+            <span style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;"><sc-for list="{{ steps }}" as="t" hint-placeholder-count="4"><span style="height:4px;border-radius:999px;background:{{ t.barDark }};"></span></sc-for></span>
+          </button>
+          <div style="display:grid;">
+            <sc-for list="{{ history }}" as="h" hint-placeholder-count="4">
+              <div style="display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid #EEE4D7;">
+                <div style="width:48px;height:48px;flex-shrink:0;border-radius:12px;background:#F5ECE0;display:flex;align-items:center;justify-content:center;"><img src="app/simbolo-simplificado-chocolate.svg" alt="" style="width:22px;opacity:.25;"></div>
+                <div style="flex:1;display:grid;gap:2px;"><span style="font-weight:700;font-size:14px;">{{ h.items }}</span><span style="font-size:12px;color:#8A6F5E;">{{ h.when }} · {{ h.totalF }}</span></div>
+                <button onClick="{{ h.repeat }}" style="border:1px solid #EEE4D7;border-radius:10px;background:#FFFFFF;color:#E8650A;font-weight:700;font-size:13px;padding:8px 10px;display:flex;align-items:center;gap:4px;"><span style="font-family:'Material Symbols Rounded';font-size:16px;line-height:1;">replay</span>Repetir</button>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <div style="position:absolute;left:16px;right:16px;top:56px;z-index:6;pointer-events:none;transform:translateY({{ toastY }});opacity:{{ toastO }};transition:transform .35s cubic-bezier(.2,.9,.3,1.2),opacity .25s;">
+        <div style="background:#4A2512;color:#FFF6EA;border-radius:14px;padding:12px 14px;display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700;box-shadow:0 12px 28px -8px rgba(74,37,18,.45);"><span style="width:26px;height:26px;border-radius:999px;background:#E8650A;display:flex;align-items:center;justify-content:center;font-family:'Material Symbols Rounded';font-size:16px;color:#FFFFFF;">check</span><span style="flex:1;">{{ toastText }}</span></div>
+      </div>
+
+      <sc-if value="{{ showCartBar }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ goCart }}" style="position:absolute;left:16px;right:16px;bottom:102px;height:56px;border:none;border-radius:16px;background:#E8650A;color:#FFFFFF;display:flex;align-items:center;justify-content:space-between;padding:0 18px;font-weight:700;font-size:15px;box-shadow:0 12px 28px -8px rgba(74,37,18,.45);transform:scale({{ bump }});transition:transform .25s cubic-bezier(.2,.9,.3,1.4);"><span style="display:flex;align-items:center;gap:10px;"><span style="min-width:26px;height:26px;border-radius:999px;background:#FFFFFF;color:#E8650A;font-size:13px;display:flex;align-items:center;justify-content:center;padding:0 6px;">{{ count }}</span>Ver sacola</span><span>{{ subF }}</span></button>
+      </sc-if>
+
+      <sc-if value="{{ showNav }}" hint-placeholder-val="{{ true }}">
+        <div style="position:absolute;left:0;right:0;bottom:0;height:110px;pointer-events:none;background:linear-gradient(to bottom,rgba(255,251,245,0),#FFFBF5 55%);"></div>
+        <div style="position:absolute;left:16px;right:16px;bottom:26px;display:flex;gap:10px;align-items:center;">
+          <div style="flex:1;height:64px;border-radius:999px;background:#FFFFFF;border:1px solid #EEE4D7;box-shadow:0 14px 30px -14px rgba(74,37,18,.35);padding:0 10px;display:flex;justify-content:space-around;align-items:center;">
+            <sc-for list="{{ nav }}" as="n" hint-placeholder-count="4">
+              <button onClick="{{ n.go }}" aria-label="{{ n.label }}" style="position:relative;width:48px;height:48px;border:none;background:none;display:grid;justify-items:center;align-content:center;gap:4px;color:{{ n.fg }};transition:color .25s;"><span style="font-family:'Material Symbols Rounded';font-size:26px;line-height:1;font-variation-settings:'FILL' {{ n.fill }};">{{ n.icon }}</span><span style="width:5px;height:5px;border-radius:999px;background:{{ n.ind }};transition:background-color .25s;"></span><sc-if value="{{ n.dot }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:6px;right:8px;width:9px;height:9px;border-radius:999px;background:#E8650A;border:2px solid #FFFFFF;"></span></sc-if></button>
+            </sc-for>
+          </div>
+          <button onClick="{{ goCart }}" aria-label="Sacola" style="position:relative;width:64px;height:64px;flex-shrink:0;border:none;border-radius:999px;background:#E8650A;color:#FFFFFF;display:flex;align-items:center;justify-content:center;box-shadow:0 14px 26px -12px rgba(232,101,10,.8);transform:scale({{ bump }});transition:transform .25s cubic-bezier(.2,.9,.3,1.4);"><span style="font-family:'Material Symbols Rounded';font-size:26px;line-height:1;font-variation-settings:'FILL' 1;">shopping_bag</span><sc-if value="{{ hasCount }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:0;right:0;min-width:22px;height:22px;padding:0 5px;border-radius:999px;background:#4A2512;color:#FFFFFF;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;border:2px solid #FFFBF5;">{{ count }}</span></sc-if></button>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const P=[
+ {id:'frances',name:'Pão francês',short:'Crocante por fora, macio por dentro',desc:'Casquinha crocante e miolo macio. Feito todo dia aqui na padaria.',price:0.9,unit:'unidade',cat:'paes',ponto:true},
+ {id:'queijo',name:'Pão de queijo',short:'Feito na casa, queijo meia-cura',desc:'Feito na casa com queijo meia-cura. Assado na hora.',price:1.5,unit:'unidade',cat:'paes'},
+ {id:'leite',name:'Pão de leite',short:'Fofinho, bom para o lanche',desc:'Massa fofinha e levemente adocicada.',price:1.2,unit:'unidade',cat:'paes'},
+ {id:'cenoura',name:'Bolo de cenoura',short:'Com cobertura de chocolate',desc:'Bolo caseiro com cobertura de chocolate.',price:8,unit:'fatia',cat:'bolos'},
+ {id:'fuba',name:'Bolo de fubá',short:'Receita de vó, com erva-doce',desc:'Receita de família, com erva-doce.',price:7,unit:'fatia',cat:'bolos'},
+ {id:'cafe',name:'Café coado',short:'Coado na hora',desc:'Café coado na hora, 300 ml.',price:5,unit:'300 ml',cat:'cafe'},
+ {id:'leitecx',name:'Leite integral',short:'Caixa de 1 litro',desc:'Leite integral, caixa de 1 litro.',price:6.5,unit:'1 L',cat:'conv'},
+ {id:'manteiga',name:'Manteiga com sal',short:'Pote de 200 g',desc:'Manteiga com sal, pote de 200 g.',price:11,unit:'200 g',cat:'conv'}];
+const CATS=[['todos','Todos'],['paes','Pães'],['bolos','Bolos'],['cafe','Café'],['conv','Conveniência']];
+const PONTOS=['Clarinho','Moreninho','Bem moreninho'];
+const SLOTS=[['agora','Agora','em ~20 min'],['f11','11h','hoje'],['f17','17h','hoje'],['f6','Amanhã 6h','agendado']];
+const PAYS=[['pix','Pix','Aprovação na hora','qr_code_2'],['cartao','Cartão de crédito','•••• 4821','credit_card'],['entrega','Pagar na entrega','Dinheiro ou maquininha','payments']];
+const STEPS=[['Pedido recebido','A equipe já viu seu pedido','receipt_long','16:58'],['Separando','Escolhendo os mais fresquinhos','bakery_dining','17:02'],['A caminho','Indo até o Bloco B','directions_walk','17:10'],['Entregue','Bom café!','home','—']];
+const COMBOS=[{id:'cafe-manha',name:'Café da manhã',items:'6 franceses, manteiga e café coado',tag:'MAIS PEDIDO',tone:'#F2C997',add:{frances:6,manteiga:1,cafe:1},price:19.9,from:21.4},{id:'lanche',name:'Lanche da tarde',items:'2 fatias de bolo e 2 cafés',tag:'17H',tone:'#FDEBDC',add:{cenoura:1,fuba:1,cafe:2},price:22,from:25},{id:'escola',name:'Lancheira',items:'4 pães de leite e 1 L de leite',tag:'ESCOLA',tone:'#F5ECE0',add:{leite:4,leitecx:1},price:10.5,from:11.3}];
+const HISTORY=[{items:'6 franceses + café coado',when:'Ontem, 6h42',add:{frances:6,cafe:1},total:10.4},{items:'Bolo de cenoura + 2 cafés',when:'Sáb, 16h10',add:{cenoura:1,cafe:2},total:18},{items:'10 pães de queijo',when:'Qui, 7h05',add:{queijo:10},total:15},{items:'Leite + manteiga + 4 franceses',when:'Ter, 18h30',add:{leitecx:1,manteiga:1,frances:4},total:21.1}];
+const DAYS=['S','T','Q','Q','S','S','D'];
+const fmt=v=>'R$ '+v.toFixed(2).replace('.',',');
+class Component extends DCLogic{
+  state={toast:'',toastOn:false,bump:1,subActive:false,subDays:[0,1,2,3,4],subTime:'6h30',subCart:{frances:6,leite:2},addr:'b52',screen:'welcome',cat:'todos',cart:{frances:6,cenoura:1},sel:'frances',selQty:6,ponto:'Moreninho',mode:'entrega',slot:'agora',pay:'pix',step:2};
+  go=s=>()=>this.setState({screen:s});
+  notify(text){clearTimeout(this._t);clearTimeout(this._b);this.setState({toast:text,toastOn:true,bump:1.06});this._b=setTimeout(()=>this.setState({bump:1}),220);this._t=setTimeout(()=>this.setState({toastOn:false}),1800);}
+  addMany(map,label){this.setState(st=>{const c={...st.cart};for(const k in map)c[k]=(c[k]||0)+map[k];return{cart:c};});this.notify(label);}
+  componentWillUnmount(){clearTimeout(this._t);clearTimeout(this._b);}
+  setQty(id,q){this.setState(st=>{const c={...st.cart};if(q<=0)delete c[id];else c[id]=q;return{cart:c};});}
+  renderVals(){
+    const st=this.state,c=st.cart;
+    const list=P.filter(p=>st.cat==='todos'||p.cat===st.cat);
+    const sel=P.find(p=>p.id===st.sel);
+    const items=P.filter(p=>c[p.id]);
+    const count=items.reduce((a,p)=>a+c[p.id],0);
+    const sub=items.reduce((a,p)=>a+p.price*c[p.id],0);
+    const fee=st.mode==='entrega'?2:0;
+    const slot=SLOTS.find(s=>s[0]===st.slot);
+    return{
+      isHome:st.screen==='home',isProduct:st.screen==='product',isCart:st.screen==='cart',isPay:st.screen==='pay',isOrder:st.screen==='order',
+      showNav:['home','order','orders','account','sub'].includes(st.screen),showCartBar:false,hasCount:count>0,count,
+      jumps:[['welcome','Boas-vindas'],['signup','Cadastro'],['home','Início'],['product','Produto'],['cart','Sacola'],['pay','Pagamento'],['order','Acompanhar pedido'],['orders','Histórico'],['sub','Pão todo dia'],['account','Conta'],['address','Endereços']].map(([k,l])=>({label:l,go:this.go(k),fg:st.screen===k?'#E8650A':'#4A2512',w:st.screen===k?700:500})),
+      cats:CATS.map(([k,l])=>({label:l,pick:()=>this.setState({cat:k}),bg:st.cat===k?'#FDEBDC':'#FFFFFF',fg:st.cat===k?'#C25407':'#4A2512',border:st.cat===k?'#E8650A':'#EEE4D7',line:st.cat===k?'#E8650A':'transparent',tfg:st.cat===k?'#4A2512':'#8A6F5E',w:st.cat===k?700:400})),
+      products:list.map(p=>({name:p.name,short:p.short,priceF:fmt(p.price),unit:p.unit,qty:c[p.id]||0,inCart:!!c[p.id],notInCart:!c[p.id],
+        open:()=>this.setState({screen:'product',sel:p.id,selQty:c[p.id]||1}),inc:()=>{this.setQty(p.id,(c[p.id]||0)+1);this.notify(p.name+' na sacola');},dec:()=>this.setQty(p.id,(c[p.id]||0)-1)})),
+      combos:COMBOS.map(k=>({name:k.name,items:k.items,tag:k.tag,tone:k.tone,priceF:fmt(k.price),fromF:fmt(k.from),add:()=>this.addMany(k.add,'Combo '+k.name+' na sacola')})),
+      top:['frances','queijo','cenoura','cafe'].map((id,i)=>{const q=P.find(x=>x.id===id);return{rank:i+1,name:q.name,priceF:fmt(q.price),open:()=>this.setState({screen:'product',sel:id,selQty:c[id]||1})};}),
+      repeatLast:()=>this.addMany(HISTORY[0].add,'Pedido de ontem na sacola'),
+      history:HISTORY.map(h=>({items:h.items,when:h.when,totalF:fmt(h.total),repeat:()=>{this.addMany(h.add,'Itens na sacola');this.setState({screen:'cart'});}})),
+      isWelcome:st.screen==='welcome',isSignup:st.screen==='signup',isAccount:st.screen==='account',isAddress:st.screen==='address',isSub:st.screen==='sub',isOrders:st.screen==='orders',
+      goSignup:this.go('signup'),goWelcome:this.go('welcome'),goAccount:this.go('account'),goAddress:this.go('address'),goSub:this.go('sub'),goOrders:this.go('orders'),goOrder:this.go('order'),noop:()=>{},
+      finishSignup:()=>{this.setState({screen:'home'});this.notify('Bem-vinda, Marina!');},
+      toastText:st.toast,toastY:st.toastOn?'0px':'-90px',toastO:st.toastOn?1:0,bump:st.bump,
+      addresses:[['b52','Casa','Bloco B · Apto 52','home'],['trab','Casa da mãe','Bloco F · Apto 11','favorite']].map(([k,l,sb,ic])=>({label:l,sub:sb,icon:ic,pick:()=>this.setState({addr:k}),border:st.addr===k?'#E8650A':'#EEE4D7',radio:st.addr===k?'radio_button_checked':'radio_button_unchecked',c:st.addr===k?'#E8650A':'#C9B8A6'})),
+      ...(()=>{const sc=st.subCart,ids=['frances','leite','queijo'],per=ids.reduce((a,id)=>a+(sc[id]||0)*P.find(x=>x.id===id).price,0),nd=st.subDays.length;
+        return{subItems:ids.map(id=>{const q=P.find(x=>x.id===id);return{name:q.name,priceF:fmt(q.price),qty:sc[id]||0,inc:()=>this.setState(s2=>({subCart:{...s2.subCart,[id]:(s2.subCart[id]||0)+1}})),dec:()=>this.setState(s2=>({subCart:{...s2.subCart,[id]:Math.max(0,(s2.subCart[id]||0)-1)}}))};}),
+        days:DAYS.map((d,i)=>{const on=st.subDays.includes(i);return{label:d,toggle:()=>this.setState(s2=>({subDays:on?s2.subDays.filter(x=>x!==i):[...s2.subDays,i]})),bg:on?'#FDEBDC':'#FFFFFF',fg:on?'#C25407':'#4A2512',border:on?'#E8650A':'#EEE4D7'};}),
+        subTimes:['6h','6h30','7h'].map(h=>({label:h,pick:()=>this.setState({subTime:h}),bg:st.subTime===h?'#FFFFFF':'transparent',sh:st.subTime===h?'0 1px 3px rgba(74,37,18,.15)':'none'})),
+        subPerF:fmt(per),subWeekF:fmt(per*nd),subDaysLabel:nd===1?'1 dia':nd+' dias',
+        subSummary:st.subActive?(nd+' dias por semana, às '+st.subTime):'Receba sem precisar pedir',
+        subBadge:st.subActive?'Ativa':'Desligada',subPillBg:st.subActive?'#E8650A':'#8A6F5E',subPillFg:'#FFFFFF',
+        subCta:st.subActive?'Pausar assinatura':'Assinar por '+fmt(per*nd)+'/semana',subCtaBg:st.subActive?'#F3EADF':'#E8650A',subCtaFg:st.subActive?'#4A2512':'#FFFFFF',
+        toggleSub:()=>{const a=!st.subActive;this.setState({subActive:a});this.notify(a?'Assinatura ativada. Até amanhã!':'Assinatura pausada');}};})(),
+      sel:{name:sel.name,desc:sel.desc,priceF:fmt(sel.price),unit:sel.unit,hasPonto:!!sel.ponto},
+      pontos:PONTOS.map(o=>({label:o,pick:()=>this.setState({ponto:o}),icon:st.ponto===o?'radio_button_checked':'radio_button_unchecked',c:st.ponto===o?'#E8650A':'#C9B8A6'})),
+      selQty:st.selQty,selTotalF:fmt(sel.price*st.selQty),
+      selInc:()=>this.setState(s=>({selQty:s.selQty+1})),selDec:()=>this.setState(s=>({selQty:Math.max(1,s.selQty-1)})),
+      addSel:()=>{this.setQty(sel.id,st.selQty);this.setState({screen:'home'});this.notify(sel.name+' na sacola');},
+      goHome:this.go('home'),goCart:this.go('cart'),goPay:this.go('pay'),
+      confirm:()=>this.setState({screen:'order',step:1}),
+      cartEmpty:count===0,
+      cartItems:items.map(p=>({name:p.name,qty:c[p.id],totalF:fmt(p.price*c[p.id]),note:p.ponto?st.ponto:p.unit,inc:()=>this.setQty(p.id,c[p.id]+1),dec:()=>this.setQty(p.id,c[p.id]-1)})),
+      modes:[['entrega','Entrega'],['retirada','Retirada']].map(([k,l])=>({label:l,pick:()=>this.setState({mode:k}),bg:st.mode===k?'#FFFFFF':'transparent',sh:st.mode===k?'0 1px 3px rgba(74,37,18,.15)':'none'})),
+      modeIcon:st.mode==='entrega'?'location_on':'storefront',
+      modeNote:st.mode==='entrega'?'Bloco B, apto 52 · taxa de R$ 2,00':'Balcão do térreo · separado no seu nome',
+      modeLabel:st.mode==='entrega'?'Entrega':'Retirada',
+      slots:SLOTS.map(([k,l,s])=>({label:l,sub:s,pick:()=>this.setState({slot:k}),bg:st.slot===k?'#FDEBDC':'#FFFFFF',border:st.slot===k?'#E8650A':'#EEE4D7'})),
+      slotLabel:slot[1],
+      subF:fmt(sub),feeF:fee?fmt(fee):'Grátis',totalF:fmt(sub+fee),
+      countLabel:count===1?'1 item':count+' itens',
+      pays:PAYS.map(([k,l,s,ic])=>({label:l,sub:s,icon:ic,pick:()=>this.setState({pay:k}),border:st.pay===k?'#E8650A':'#EEE4D7',radio:st.pay===k?'radio_button_checked':'radio_button_unchecked',c:st.pay===k?'#E8650A':'#C9B8A6'})),
+      statusTitle:['','Recebemos seu pedido','Separando seu pão fresquinho','Seu pedido está a caminho','Entregue. Bom café!'][st.step],
+      statusPill:['','Recebido','Em preparo','A caminho','Entregue'][st.step],
+      steps:STEPS.map(([l,s,ic,t],i)=>{const n=i+1,done=n<=st.step;return{label:l,sub:s,icon:done&&n<st.step?'check':ic,time:done?t:'',dot:done?'#E8650A':'#F3EADF',ic:done?'#FFFFFF':'#C9B8A6',bar:done?'#E8650A':'#EEE4D7',barDark:done?'#E8650A':'#F2C997',fg:done?'#4A2512':'#8A6F5E'};}),
+      nextStep:()=>this.setState(s=>({step:s.step>=4?1:s.step+1})),
+      nav:[['home','Início','home',['home']],['orders','Pedidos','receipt_long',['orders','order']],['sub','Todo dia','event_repeat',['sub']],['account','Conta','person',['account']]].map(([k,l,ic,act])=>({label:l,icon:ic,go:this.go(k),fg:act.includes(st.screen)?'#E8650A':'#8A6F5E',fill:act.includes(st.screen)?1:0,bg:'transparent',ind:act.includes(st.screen)?'#E8650A':'transparent',w:act.includes(st.screen)?700:500,dot:(k==='orders'&&st.step<4&&st.screen!=='orders'&&st.screen!=='order')||(k==='sub'&&st.subActive&&false)}))
+    };
+  }
+}
+</script>
+</body>
+</html>
